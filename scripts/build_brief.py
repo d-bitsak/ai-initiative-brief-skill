@@ -35,7 +35,7 @@ try:
 except ImportError:
     sys.exit(
         "Не найден python-docx. Установите: "
-        "pip install python-docx --break-system-packages"
+        "<python-из-venv> -m pip install python-docx (см. README.md)"
     )
 
 HINT_GRAY = RGBColor(0x70, 0x70, 0x70)

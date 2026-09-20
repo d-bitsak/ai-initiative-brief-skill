@@ -15,7 +15,7 @@ from pathlib import Path
 
 
 def read_txt(path):
-    for enc in ("utf-8", "utf-8-sig", "cp1251"):
+    for enc in ("utf-8-sig", "utf-8", "cp1251"):
         try:
             return path.read_text(encoding=enc)
         except (UnicodeDecodeError, UnicodeError):
@@ -29,7 +29,7 @@ def read_docx(path):
     except ImportError:
         sys.exit(
             "Для .docx нужен python-docx: "
-            "pip install python-docx --break-system-packages"
+            "<python-из-venv> -m pip install python-docx (см. README.md)"
         )
     doc = Document(str(path))
     out = []
@@ -67,8 +67,8 @@ def read_pdf(path):
     except ImportError:
         sys.exit(
             "Для .pdf нужен pdfplumber или pypdf "
-            "(pip install pdfplumber --break-system-packages), "
-            "либо воспользуйтесь навыком pdf для извлечения текста."
+            "(<python-из-venv> -m pip install pypdf; см. README.md). "
+            "Также можно продолжить интервью в чате."
         )
 
 
@@ -89,6 +89,8 @@ def main():
     else:
         sys.exit(f"Неподдерживаемый формат: {ext}. Используйте .txt/.md/.docx/.pdf")
 
+    if not text.strip():
+        sys.exit("Текст не найден. Для скана нужно OCR; можно предоставить текст или пройти интервью в чате.")
     sys.stdout.write(text)
 
 
